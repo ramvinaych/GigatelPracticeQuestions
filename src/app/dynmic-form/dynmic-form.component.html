@@ -1,0 +1,19 @@
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+    <div *ngFor="let field of formConfig">
+      <div *ngIf="field.type !== 'array'">
+        <label [for]="field.key">{{ field.label }}</label>
+        <input [id]="field.key" [formControlName]="field.key" [type]="field.type" />
+      </div>
+      <div *ngIf="field.type === 'array'">
+        <label>{{ field.label }}</label>
+        <button type="button" (click)="addFormControl(field)">Add {{ field.label }}</button>
+        <div formArrayName="arrayField">
+          <div *ngFor="let control of formArray.controls; let i = index">
+            <input [formControlName]="i" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+  
